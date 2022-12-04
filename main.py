@@ -16,11 +16,14 @@ def main():
   dtYesterday=datetime.datetime.now() - datetime.timedelta(days=1)
   sYesterday=dtYesterday.strftime('__%Y-%m-%d')
   sNewArchiveFolder = os.path.join(sDownloadsArchiveFolder, sYesterday)
+  # Do nothing if the yesterday folder already exists
+  # This suggests that the cleanup already happened
   if os.path.exists(sNewArchiveFolder):
     return
+  # Otherwise create the directory
   os.mkdir(sNewArchiveFolder)
   
-  # List downloads folder and move everything except '=archive'
+  # List downloads folder and move everything except '__archive'
   os.chdir(sDownloadsFolder)
   lFilesToMove = os.listdir()
   for f in lFilesToMove:
